@@ -7,5 +7,5 @@ public interface Repository<K, V> {
 
     void update(K key, V value);
 
-    void delete(K Key);
+    void delete(K key);
 }
