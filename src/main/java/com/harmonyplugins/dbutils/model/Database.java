@@ -8,4 +8,6 @@ public interface Database<T> {
     void connect(Properties properties);
 
     void disconnect();
+
+    boolean isValid();
 }

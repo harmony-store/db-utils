@@ -1,10 +1,11 @@
 package com.harmonyplugins.dbutils.sql;
 
+import be.bendem.sqlstreams.Sql;
 import com.harmonyplugins.dbutils.model.Database;
-import com.harmonyplugins.errorreporter.Try;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 import java.util.Properties;
 
 public class SQLDatabase implements Database<Connection> {
@@ -26,17 +27,39 @@ public class SQLDatabase implements Database<Connection> {
             properties.getProperty("database")
         );
 
-        this.connection = Try.ofSupplier(() -> DriverManager.getConnection(
-            url,
-            properties.getProperty("username"),
-            properties.getProperty("password")
-        )).printStackTrace().or(null);
+        try {
+            this.connection = DriverManager.getConnection(
+                url,
+                properties.getProperty("username"),
+                properties.getProperty("password")
+            );
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void disconnect() {
-        Try.of(() -> {
-           if(connection != null) connection.close();
-        }).printStackTrace().run();
+        if(!isValid()) return;
+
+        try {
+            connection.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean isValid() {
+        if(connection == null) return false;
+
+        try {
+            return connection.isValid(1);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return false;
     }
 }

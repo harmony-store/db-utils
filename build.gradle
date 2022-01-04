@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '6.1.0'
 }
 
 group 'com.harmonyplugins'
@@ -13,10 +14,10 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'com.github.harmony-store:error-reporter:6b9dd06875'
+    implementation 'com.github.bendem:sql-streams:67980a372b'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }
 
 test {
