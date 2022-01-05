@@ -67,7 +67,7 @@ public class SQLDatabase implements Database<Connection> {
         hikari.setConnectionTimeout(CONNECTION_TIMEOUT);
         hikari.setLeakDetectionThreshold(LEAK_DETECTION_THRESHOLD);
 
-        Map<String, String> map = new HashMap<>() {{
+        Map<String, String> map = new HashMap<String, String>() {{
             put("useUnicode", "true");
             put("characterEncoding", "utf8");
 
